@@ -7,9 +7,8 @@ const withBookstoreService = (mapMethodsToProps) => (Wrapped) => {
       <BookstoreServiceConsumer>
         {
           (bookstoreService) => {
-            const serviceProps = mapMethodsToProps(bookstoreService)
             return(
-              <Wrapped {...props} {...serviceProps} />
+              <Wrapped {...props} bookstoreService={bookstoreService} />
             )
           }
         }
