@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import ErrorBoundry from '../error-boundry'
 import { BookStoreProvider } from '../bookstore-services-context'
-import BookstoreServices from '../../services/bookstore-service'
+import BookstoreService from '../../services/bookstore-service'
 import Restore from '../pages/restore'
 import Spinner from '../spinner'
 
@@ -9,7 +9,7 @@ import Spinner from '../spinner'
 
 export default class App extends Component   {
   state = {
-    booksServices: new BookstoreServices(),
+    booksServices: new BookstoreService(),
     loading: true
   }
   componentDidMount(){
