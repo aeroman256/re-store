@@ -1,6 +1,19 @@
 
 const initialState = {
-  books: []
+  books: [
+    {
+      id: 1,
+      title: "Site Reliability Engineering",
+      author: "Michael T. Nygard",
+      price: "34"
+    },
+    {
+      id: 2,
+      title: "Site Reliability Engineering",
+      author: "Michael T. Nygard",
+      price: "34"
+    }
+  ]
 }
 
 const reducer = (state=initialState, action) => {

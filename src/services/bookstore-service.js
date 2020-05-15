@@ -4,25 +4,25 @@ export default class BookstoreService {
     return [
       {
         id: 1,
-        name: "Site Reliability Engineering",
+        title: "Site Reliability Engineering",
         author: "Michael T. Nygard",
         price: "34"
       },
       {
         id: 2,
-        name: "Site Reliability Engineering",
+        title: "Site Reliability Engineering",
         author: "Michael T. Nygard",
         price: "34"
       },
       {
         id: 3,
-        name: "Site Reliability Engineering",
+        title: "Site Reliability Engineering",
         author: "Michael T. Nygard",
         price: "34"
       },
       {
         id: 4,
-        name: "Site Reliability Engineering",
+        title: "Site Reliability Engineering",
         author: "Michael T. Nygard",
         price: "34"
       },
