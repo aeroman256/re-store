@@ -1,31 +1,23 @@
 import React from 'react'
-import { Route, Switch, Link } from 'react-router-dom'
-import { withBookstoreService } from '../hoc'
+import { Route, Switch } from 'react-router-dom'
+
 
 import { HomePage, CardPage } from '../pages'
+import ShopHeader from '../shop-header'
+import ShoppingCartTable from '../shopping-cart-table'
 
 
-
-const App = ({ bookstoreService }) => {
+const App = () => {
   return (
-    <div>
-        <h1>Hello App</h1>
-        <header>
-          <ul>
-            <li>
-              <Link to='/'>Home</Link>
-            </li>
-            <li>
-              <Link to='/card'>Card</Link>
-            </li>
-          </ul>
-        </header>
+    <main role="main" className="container">
+        <ShopHeader numItems={5} total={250}/>
         <Switch>
           <Route path='/' component={HomePage} exact/>
           <Route path='/card' component={CardPage} />
         </Switch>
-    </div>
+        <ShoppingCartTable />
+    </main>
   )
 }
 
-export default withBookstoreService()(App)
+export default App
