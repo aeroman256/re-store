@@ -13,14 +13,16 @@ const initialState = {
     //   author: "Michael T. Nygard",
     //   price: "34"
     // }
-  ]
+  ],
+  loaded: true
 }
 
 const reducer = (state=initialState, action) => {
   switch(action.type){
     case 'BOOKS_LOADED':
       return {
-        books: action.payload
+        books: action.payload,
+        loaded: false
       }
     default:
       return state
