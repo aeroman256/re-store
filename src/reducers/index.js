@@ -14,7 +14,8 @@ const initialState = {
     //   price: "34"
     // }
   ],
-  loaded: true
+  loading: true,
+  error: null
 }
 
 const reducer = (state=initialState, action) => {
@@ -22,12 +23,20 @@ const reducer = (state=initialState, action) => {
     case 'BOOKS_LOADED':
       return {
         books: action.payload,
-        loaded: false
+        loading: false,
+        error: null
       }
     case 'BOOKS_REQUESTED':
       return {
         books: [],
-        loaded: true
+        loading: true,
+        error: null
+      }
+    case 'BOOKS_ERROR':
+      return {
+        books: [],
+        loading: false,
+        error: action.payload
       }
     default:
       return state

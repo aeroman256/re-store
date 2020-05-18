@@ -3,21 +3,18 @@ import BookListItem from '../book-list-item'
 import Spinner from '../spinner'
 import { connect } from 'react-redux'
 import { withBookstoreService } from '../hoc'
-import { booksLoaded, bookRequested } from '../../actions'
+import { booksLoaded, bookRequested, bookError } from '../../actions'
 import { compose } from '../../utils'
 
 import './book-list.css'
+import ErrorIndicator from '../error-indicator/error-indicator'
 
 class BookList extends Component {
 
   componentDidMount() {
-    const { bookstoreService, booksLoaded, bookRequested} = this.props
-
-    bookRequested()
-    bookstoreService.getBooks()
-      .then((data) => {
-        booksLoaded(data)
-      })
+    const { fetchBooks } = this.props
+    fetchBooks()
+    
     //receive data
     // const data = this.props.bookstoreService.getBooks()
     // console.log(data)
@@ -26,9 +23,12 @@ class BookList extends Component {
   }
 
   render() {
-    const { books, loaded } = this.props
-    if (loaded) {
+    const { books, loading, error } = this.props
+    if (loading) {
       return <Spinner />
+    }
+    if (error) {
+      return <ErrorIndicator />
     }
 
     return (
@@ -43,10 +43,11 @@ class BookList extends Component {
   }
 }
 
-const mapStateToProps = ({books, loaded}) => {
+const mapStateToProps = ({books, loading, error}) => {
   return {
     books,
-    loaded
+    loading,
+    error
   }
 }
 
@@ -64,9 +65,26 @@ const mapStateToProps = ({books, loaded}) => {
 //   }, dispatch)
 // }
 
-const mapDispatchToProps = {
-  booksLoaded,
-  bookRequested
+// const mapDispatchToProps = {
+//   booksLoaded,
+//   bookRequested,
+//   bookError
+// }
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const {bookstoreService} = ownProps
+  return {
+    fetchBooks: () => {
+      dispatch(bookRequested())
+      bookstoreService.getBooks()
+      .then((data) => {
+        dispatch(booksLoaded(data))
+      })
+      .catch((err) => {
+        dispatch(bookError(err))
+      })
+    }
+  }
 }
 
 export default compose(
