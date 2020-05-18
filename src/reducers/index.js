@@ -24,6 +24,11 @@ const reducer = (state=initialState, action) => {
         books: action.payload,
         loaded: false
       }
+    case 'BOOKS_REQUESTED':
+      return {
+        books: [],
+        loaded: true
+      }
     default:
       return state
   }
