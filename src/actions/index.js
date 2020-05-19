@@ -1,20 +1,20 @@
 
 const booksLoaded = (newBooks) => {
   return {
-    type: 'BOOKS_LOADED',
+    type: 'FETCH_BOOKS_LOADED',
     payload: newBooks
   }
 }
 
 const bookRequested = () => {
   return {
-    type: 'BOOKS_REQUESTED'
+    type: 'FETCH_BOOKS_REQUESTED'
   }
 }
 
 const bookError = (error) => {
   return {
-    type: 'BOOKS_ERROR',
+    type: 'FETCH_BOOKS_ERROR',
     payload: error
   }
 }
