@@ -9,7 +9,7 @@ import { compose } from '../../utils'
 import './book-list.css'
 import ErrorIndicator from '../error-indicator/error-indicator'
 
-class BookList extends Component {
+class BookListContainer extends Component {
 
   componentDidMount() {
     const { fetchBooks } = this.props
@@ -28,10 +28,16 @@ class BookList extends Component {
       return <Spinner />
     }
     if (error) {
+      console.log(error)
       return <ErrorIndicator />
     }
 
-    return (
+    return <BookList books={books} />
+  }
+}
+
+const BookList = ({books}) => {
+  return (
       <ul className="book-list">
         {books.map((book) => {
           return (
@@ -39,8 +45,7 @@ class BookList extends Component {
           )
         })}
       </ul>
-    )
-  }
+  )
 }
 
 const mapStateToProps = ({books, loading, error}) => {
@@ -81,4 +86,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 export default compose(
   withBookstoreService(),
   connect(mapStateToProps, mapDispatchToProps)
-)(BookList)
+)(BookListContainer)
