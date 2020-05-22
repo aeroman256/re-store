@@ -14,20 +14,7 @@ const initialState = {
     //   price: "34"
     // }
   ],
-  cartItems: [
-    {
-      id: 1000,
-      title: "Book 1",
-      count: 2,
-      total: 20
-    },
-    {
-      id: 1002,
-      title: "Book 2",
-      count: 3,
-      total: 90
-    }
-  ],
+  cartItems: [],
   orderTotal: 110,
   loading: true,
   error: null
@@ -49,20 +36,36 @@ const updateCartItems = (cartItems, item, idx) => {
   }
 }
 
-const updateCartItem = (book, item) => {
-  if (item) {
-    return {
-      ...item,
-      count: item.count + 1,
-      total: item.total + book.price
-    }
-  } else {
-    return {
-      id: book.id,
-      title: book.title,
-      count: 1,
-      total: book.price
-    }
+// const updateCartItem = (book, item) => {
+//   if (item) {
+//     return {
+//       ...item,
+//       count: item.count + 1,
+//       total: item.total + book.price
+//     }
+//   } else {
+//     return {
+//       id: book.id,
+//       title: book.title,
+//       count: 1,
+//       total: book.price
+//     }
+//   }
+// }
+
+const updateCartItem = (book, item = {}) => {
+  const {
+    id = book.id,
+    title = book.title,
+    count = 0,
+    total = 0
+  } = item
+  
+  return {
+    id,
+    title,
+    count: count + 1,
+    total: total + book.price
   }
 }
 
@@ -99,6 +102,24 @@ const reducer = (state=initialState, action) => {
         ...state,
         cartItems: updateCartItems(state.cartItems, newItem, newItemIndex)
       }
+    // case 'BOOK_INCREASE_TO_CART':
+    //   const itemId = action.payload
+    //   const price = state.books.find((item) => book.id === itemId).price
+    
+    //   const newItem1  = {
+    //     ...item,
+    //     count: item.count + 1,
+    //     total: item.total + price
+    //   }
+    //   const newItemIndex1 = state.cartItems.findIndex(({id}) => id === bookId)
+    //   return {
+    //     ...state,
+    //     cartItems: updateCartItems(state.cartItems, newItem, newItemIndex)
+    //   }
+    // case 'BOOK_DECREASE_TO_CART':
+      
+    // case 'BOOK_DELETE_TO_CART':
+      
     default:
       return state
   }
