@@ -11,9 +11,9 @@ export default class BookstoreService {
     },
     {
       id: 2,
-      title: "Site Reliability Engineering",
-      author: "Michael T. Nygard",
-      price: 34,
+      title: "Мороз и солнце",
+      author: "Пушкин А.С.",
+      price: 59,
       coverImage: "https://cv4.litres.ru/pub/c/elektronnaya-kniga/cover_330/32481440-andrey-kurpatov-krasnaya-tabletka-posmotri-pravde-v-glaza.jpg"
     }
   ]

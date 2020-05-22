@@ -102,9 +102,65 @@ const reducer = (state=initialState, action) => {
         ...state,
         cartItems: updateCartItems(state.cartItems, newItem, newItemIndex)
       }
-    // case 'BOOK_INCREASE_TO_CART':
-    //   const itemId = action.payload
-    //   const price = state.books.find((item) => book.id === itemId).price
+    case 'BOOK_INCREASE_TO_CART':
+      const bookIdIncrease = action.payload
+      const bookPrice = state.books.find((item) => item.id === bookIdIncrease).price
+      const bookIdxIncrease = state.cartItems.findIndex(({id}) => id === bookIdIncrease)
+      const itemIncrease = state.cartItems[bookIdxIncrease]
+      const newItemIncrease = {
+        ...itemIncrease,
+        count: itemIncrease.count + 1,
+        total: itemIncrease.total + bookPrice
+      }
+
+      return {
+        ...state,
+        cartItems: [
+          ...state.cartItems.slice(0, bookIdxIncrease),
+          newItemIncrease,
+          ...state.cartItems.slice(bookIdxIncrease + 1)
+        ]
+      }
+
+    case 'BOOK_DECREASE_TO_CART':
+      const bookIdDecrease = action.payload
+      const bookPriceDecrease = state.books.find((item) => item.id === bookIdDecrease).price
+      const bookIdxDecrease = state.cartItems.findIndex(({id}) => id === bookIdDecrease)
+      const itemDecrease = state.cartItems[bookIdxDecrease]
+      let newItemDecrease = {
+        ...itemDecrease,
+        count: itemDecrease.count - 1,
+        total: itemDecrease.total - bookPriceDecrease
+      }
+
+      if (itemDecrease.count < 2) {
+        newItemDecrease = {
+          ...itemDecrease,
+          count: 1,
+          total: bookPriceDecrease
+        }
+      }
+
+      return {
+        ...state,
+        cartItems: [
+          ...state.cartItems.slice(0, bookIdxDecrease),
+          newItemDecrease,
+          ...state.cartItems.slice(bookIdxDecrease + 1)
+        ]
+      }
+    case 'BOOK_DELETE_TO_CART':
+      const bookIdDelete = action.payload
+      const bookDeleteIdx = state.cartItems.findIndex(({id}) => id === bookIdDelete)
+      console.log(bookIdDelete)
+      console.log(state.cartItems)
+      return {
+        ...state,
+        cartItems: [
+          ...state.cartItems.slice(0, bookDeleteIdx),
+          ...state.cartItems.slice(bookDeleteIdx + 1),
+        ]
+      }
     
     //   const newItem1  = {
     //     ...item,
