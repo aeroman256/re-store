@@ -24,6 +24,12 @@ const updateCartItem = (book, item = {}, quantity) => {
 }
 
 const updateCartItems = (cartItems, item, idx) => {
+  if (item.count === 0) {
+    return [
+      ...cartItems.slice(0, idx),
+      ...cartItems.slice(idx + 1),
+    ]
+  }
   if (idx === -1) {
     return [
         ...cartItems,
@@ -74,15 +80,14 @@ const reducer = (state=initialState, action) => {
         error: action.payload
       }
     case 'BOOK_ADDED_TO_CART':
-      const bookId = action.payload
-      return updateOrder(state, bookId, 1)
+      return updateOrder(state, action.payload, 1)
 
     case 'BOOK_REMOVE_FROM_CART':
-      return updateOrder(state, bookId, -1)
+      return updateOrder(state, action.payload, -1)
 
     case 'ALL_BOOKS_REMOVE_FROM_CART':
-      const count = state.books.find(({id}) => id === bookId).count
-      return updateOrder(state, bookId, -count)
+      const count = state.cartItems.find(({id}) => id === action.payload).count
+      return updateOrder(state, action.payload, -count)
 
     default:
       return state
