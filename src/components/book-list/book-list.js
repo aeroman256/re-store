@@ -52,33 +52,13 @@ const BookList = ({books, onAddedToCart}) => {
   )
 }
 
-const mapStateToProps = ({books, loading, error}) => {
+const mapStateToProps = ({bookList: {books, loading, error}}) => {
   return {
     books,
     loading,
     error
   }
 }
-
-// const mapDispatchToProps = (dispatch) =>{
-//   return { 
-//       booksLoaded: (newBooks) => {
-//         dispatch (booksLoaded(newBooks))
-//     }
-//   }
-// }
-
-// const mapDispatchToProps = (dispatch) =>{
-//   return bindActionCreators({
-//     booksLoaded
-//   }, dispatch)
-// }
-
-// const mapDispatchToProps = {
-//   booksLoaded,
-//   bookRequested,
-//   bookError
-// }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   const {bookstoreService} = ownProps
